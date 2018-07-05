@@ -10,7 +10,7 @@ import Color from './Color';
 export default class Composer extends React.Component {
 
     status = 0;
-    key = 'input1'
+    key = 'input'
 
     onContentSizeChange(e) {
         const { contentSize } = e.nativeEvent;
