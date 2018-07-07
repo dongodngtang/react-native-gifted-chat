@@ -2,9 +2,9 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Platform, StyleSheet, TextInput } from 'react-native';
+import {Platform, StyleSheet, TextInput, KeyboardAvoidingView} from 'react-native';
 
-import { MIN_COMPOSER_HEIGHT, DEFAULT_PLACEHOLDER } from './Constant';
+import {MIN_COMPOSER_HEIGHT, DEFAULT_PLACEHOLDER} from './Constant';
 import Color from './Color';
 
 export default class Composer extends React.Component {
@@ -13,7 +13,7 @@ export default class Composer extends React.Component {
     key = 'input'
 
     onContentSizeChange(e) {
-        const { contentSize } = e.nativeEvent;
+        const {contentSize} = e.nativeEvent;
 
         // Support earlier versions of React Native on Android.
         if (!contentSize) return;
@@ -36,27 +36,31 @@ export default class Composer extends React.Component {
     render() {
         let text = this.props.text;
 
-        if(text === '' && this.status===1){
+        if (text === '' && this.status === 1) {
             this.status = 0;
-            this.key = 'input'+Math.floor(Math.random()*10);
+            this.key = 'input' + Math.floor(Math.random() * 10);
         }
 
         return (
-            <TextInput key={this.key}
-                       placeholder={this.props.placeholder}
-                       placeholderTextColor={this.props.placeholderTextColor}
-                       multiline={this.props.multiline}
-                       onChange={(e) => this.onContentSizeChange(e)}
-                       onContentSizeChange={(e) => this.onContentSizeChange(e)}
-                       onChangeText={(text) => this.onChangeText(text)}
-                       style={[styles.textInput, this.props.textInputStyle, { height: this.props.composerHeight }]}
-                       autoFocus={this.props.textInputAutoFocus}
-                       accessibilityLabel={this.props.text || this.props.placeholder}
-                       enablesReturnKeyAutomatically
-                       underlineColorAndroid="transparent"
-                       keyboardAppearance={this.props.keyboardAppearance}
-                       {...this.props.textInputProps}
-            />
+
+            <KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
+                <TextInput key={this.key}
+                           placeholder={this.props.placeholder}
+                           placeholderTextColor={this.props.placeholderTextColor}
+                           multiline={this.props.multiline}
+                           onChange={(e) => this.onContentSizeChange(e)}
+                           onContentSizeChange={(e) => this.onContentSizeChange(e)}
+                           onChangeText={(text) => this.onChangeText(text)}
+                           style={[styles.textInput, this.props.textInputStyle, {height: this.props.composerHeight}]}
+                           autoFocus={this.props.textInputAutoFocus}
+                           accessibilityLabel={this.props.text || this.props.placeholder}
+                           enablesReturnKeyAutomatically
+                           underlineColorAndroid="transparent"
+                           keyboardAppearance={this.props.keyboardAppearance}
+                           {...this.props.textInputProps}
+                />
+            </KeyboardAvoidingView>
+
         );
     }
 
@@ -89,8 +93,10 @@ Composer.defaultProps = {
     textInputStyle: {},
     textInputAutoFocus: false,
     keyboardAppearance: 'default',
-    onTextChanged: () => {},
-    onInputSizeChanged: () => {},
+    onTextChanged: () => {
+    },
+    onInputSizeChanged: () => {
+    },
 };
 
 Composer.propTypes = {
