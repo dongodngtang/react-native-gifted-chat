@@ -58,6 +58,10 @@ export default class Composer extends React.Component {
                            underlineColorAndroid="transparent"
                            keyboardAppearance={this.props.keyboardAppearance}
                            {...this.props.textInputProps}
+                           onSubmitEditing={() => {
+                           this.props.onSend && this.props.onSend({text: text.trim()}, true);
+                           }}
+                          returnKeyType={'send'}
                 />
             </KeyboardAvoidingView>
 
